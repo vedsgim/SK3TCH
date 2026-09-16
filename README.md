@@ -38,7 +38,7 @@ The whole thing fits in your pocket.
 
 ---
 
-https://github.com/user-attachments/assets/1a8eb2ab-47c6-4078-9e87-1bc683d8c066
+https://github.com/user-attachments/assets/5799c647-3b16-4c04-84c9-9f6264f68c04
 
 ---
 
