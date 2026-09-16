@@ -24,7 +24,7 @@ The whole thing fits in your pocket.
 ---
 
 <p align="center">
-  <img src="screenshots/landing.png" width="48%">
+  <img src="screenshots/splash.png" width="48%">
   <img src="screenshots/sample.png" width="48%">
 </p>
 <p align="center">
