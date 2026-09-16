@@ -1,0 +1,889 @@
+
+===========================================================================
+                                                              issue 001
+  ___ _  _____  ___  _  _
+ / __| |/ /_  )/ __|| || |
+ \__ \ ' < / /| (__ | __ |
+ |___/_|\_\___|\___||_||_|
+
+                             the manual
+                         [ a beat maker's guide ]
+
+===========================================================================
+                 "make something out of nothing, on a bus"
+===========================================================================
+
+
+  CONTENTS
+  --------
+
+  0x00  ..............................  what is this thing
+  0x01  ..............................  loading your first sample
+  0x02  ..............................  trimming and shaping
+  0x03  ..............................  time stretch
+  0x04  ..............................  slicing
+  0x05  ..............................  the sequencer
+  0x06  ..............................  drum programming
+  0x07  ..............................  the 808 bass
+  0x08  ..............................  eq
+  0x09  ..............................  insert fx
+  0x0A  ..............................  punch fx — live performance
+  0x0B  ..............................  fx sequencer automation
+  0x0C  ..............................  projects
+  0x0D  ..............................  recording
+  0x0E  ..............................  controls reference
+
+
+===========================================================================
+  0x00  WHAT IS THIS THING
+===========================================================================
+
+  SK3TCH is a sample-driven groovebox for the Trimui Brick. It runs on Knulli.
+  No computer. No DAW. No wifi. Just you, an SD card full of WAVs,
+  and some time to kill.
+
+  Load a sample. Chop it. Stretch it to tempo. Sequence it. Layer
+  drums. Drop an 808 bass. Dial in the FX. Then jam with punch FX
+  until something magical falls out.
+
+  The whole thing fits in your pocket.
+
+  Eight sample slots. Four patterns. A dedicated FX automation lane.
+  Per-step nudge for groove. Phase vocoder time stretch. 808 synth
+  built in. Real-time punch FX for live performance.
+
+  That's SK3TCH.
+
+
+  CONTROLS AT A GLANCE
+  --------------------
+
+    D-pad              navigate / adjust values
+    B (hold) + D-pad   modify selected parameter
+    A                  play / stop
+    Y                  loop toggle / punch FX modifier
+    X                  record / punch FX modifier
+    L1 / R1            switch slots (1-8)
+    Menu               quit
+
+  Everything else is context-sensitive. The screen tells you
+  what's active. When in doubt, hold B and push a direction.
+
+
+===========================================================================
+  0x01  LOADING YOUR FIRST SAMPLE
+===========================================================================
+
+  SK3TCH has 8 slots. Think of them as tape decks, each holding
+  one sample. Switch between them with L1 and R1.
+
+  The top row of each slot is FILE — your sample's home address.
+
+    - Navigate to FILE row (top of screen)
+    - Tap B to open the file browser
+    - Navigate with D-pad, press B to load
+
+  The waveform appears at the top of the screen the moment a file
+  loads. Two cyan markers show the active playback region.
+
+  Copy WAV files anywhere on the SD card. SK3TCH doesn't care
+  where they live — the file browser navigates the whole card.
+  Organised folders, chaotic root dumps, whatever works for you.
+
+  Pro tip: put your drums in /userdata/roms/ports/SK3TCH/drums/
+  and your loops in /loops/ so the browser opens close to them.
+
+  PREVIEW
+  -------
+
+  The file browser previews WAV files as you navigate. Move the
+  cursor onto any file and it plays automatically after a short
+  pause. Navigate away and it stops. Loops and acapellas preview
+  up to 10 seconds so you get enough to identify them without
+  waiting. One-shots play in full.
+
+  No extra button press needed — just browse and listen.
+
+
+===========================================================================
+  0x02  TRIMMING AND SHAPING
+===========================================================================
+
+  The waveform zone takes up most of the screen. To the right of
+  it is a thin vertical level fader. Both are reachable from the
+  SOURCE row.
+
+  From SOURCE, press right — the fader activates (highlighted
+  border and thumb). From the fader, left/right enters the
+  EQ zone where the START and END markers live.
+
+  LEVEL FADER
+  -----------
+
+  The fader controls per-slot volume 0-100.
+
+    B + up/down    ......  coarse (steps of 10)
+    B + left/right ......  fine (steps of 1)
+
+  From the fader, press down to return to SOURCE.
+  From the fader, press up to reach the save/load bar.
+
+  START AND END MARKERS
+  ---------------------
+
+  The two cyan/amber arrows on the waveform mark the playback
+  region. These markers are navigable directly from the fader:
+
+    Fader + right   →  jump to START marker
+    Fader + left    →  jump to END marker
+
+  Once on a marker:
+
+    B + up/down    ......  coarse trim (large jump)
+    B + left/right ......  fine trim (small step)
+
+  The waveform zooms around the active marker while B is held so
+  you can see exactly where you're cutting. Release B and the full
+  waveform returns.
+
+  START and END sit at the edges of the EQ strip — navigate
+  inward with right (from START) or left (from END) to reach the
+  EQ bands. Navigate outward to return to the fader.
+
+  HOW TO FIND A CLEAN LOOP
+  ------------------------
+
+    1. Reach fader (right from SOURCE), then right to START
+    2. Trim coarse with B + up/down, then fine with B + left/right
+    3. Navigate right through EQ bands until you reach END
+    4. Trim end point the same way
+    5. Hit A and listen — adjust until it loops clean
+    6. Small fine adjustments kill most clicks
+
+
+===========================================================================
+  0x03  TIME STRETCH
+===========================================================================
+
+  Time stretch is set on the SELECT row using the BEATS field.
+  Tell SK3TCH how many beats are in your sample region, and it
+  stretches the loop to match the project BPM automatically.
+
+  Navigate to SELECT, then left/right to reach BEATS:
+
+    B + up/down    ......  coarse (steps of 10)
+    B + left/right ......  fine (steps of 1)
+
+  UNDER THE HOOD:
+
+    ratio = (beats × 60 / project_bpm) / region_duration
+
+  When you set BEATS and hit play, a phase vocoder processes the
+  stretch in a background thread. Playback starts as frames become
+  available. The result is cached — next play is instant.
+
+  When you load a project, SK3TCH pre-warms every stretch-
+  configured slot in the background before you touch a key.
+
+  Phase vocoder works best on melodic content — chords, loops,
+  pads, vocals. Drum loops stretch reasonably at small ratios.
+  Extreme ratios on transient-heavy material will artifact. That
+  can sound good too. Experiment.
+
+
+  TIPS
+  ----
+
+    - Trim a clean loop first, then set BEATS
+    - 16 is a good starting point for most loops
+    - Lower BEATS = faster / shorter loop at the same project BPM
+    - Higher BEATS = slower / longer loop (max 64)
+    - Use BEATS as a speed and pitch control, not just a label
+    - If it sounds wobbly, trim the region tighter first
+
+
+===========================================================================
+  0x04  SLICING
+===========================================================================
+
+  SLICE mode turns one sample into a mini-pad bank. Navigate to
+  SELECT, then left/right to the SLICES sub-field. Set a division:
+
+    OFF  ...  no slicing (default)
+    4    ...  quarter slices
+    8    ...  eighth slices
+    16   ...  sixteenth slices
+    32   ...  thirty-second slices
+
+  SK3TCH divides the region into equal chunks automatically.
+
+  In the sequencer, the NOTE parameter on each step now selects
+  which slice fires instead of transposing pitch:
+
+    NOTE 1 = slice 1 (start of region)
+    NOTE 4 = slice 4
+    NOTE 8 = slice 8
+
+  This means you can chop a break, load it once, and sequence
+  the pieces in any order. No separate files. One slot.
+
+  Classic boom bap workflow:
+
+    1. Load a break — full drum loop
+    2. Set SLICE to 8 or 16
+    3. Find the kick on slice 1, snare on slice 3 (usually)
+    4. Sequence them with NOTE trig
+    5. Add probability and nudge for feel
+
+
+===========================================================================
+  0x05  THE SEQUENCER
+===========================================================================
+
+  Navigate down past the blank row to the SEQUENCE row. Left/right
+  here switches between BPM, SWING, and PATTERN.
+
+  BPM is the project tempo. SWING delays odd steps by a percentage
+  of the step duration. PATTERN selects which pattern you're on.
+  Together BPM and SWING define the grid.
+
+  Navigate down again to enter the step grid.
+
+  THE GRID
+  --------
+
+    8 lanes × 64 steps = 512 steps per pattern
+    4 patterns per project
+    Patterns chain automatically — next pattern with any active
+    steps plays when the current one ends
+
+  Each lane corresponds to one slot. Lane 1 = slot 1, lane 2 =
+  slot 2, and so on. Steps in a lane trigger that slot's sample.
+
+  Tap B on any step to toggle it on. Active steps light up cyan.
+  Orange means a step is firing a different slot (cross-trigger).
+
+  Navigate with D-pad. Press A to play/stop at any time.
+
+  STEP PARAMETERS
+  ---------------
+
+  Hold B on any step. Up/down cycles the parameter field.
+  Left/right adjusts the value.
+
+  The top-left label reads STEP P## — the dim digit is the pattern
+  number, the white digits are the step position (01-64). Keeps
+  pattern context visible after you enter the grid.
+
+    SOURCE  ......  which slot this step fires (default = own lane)
+    RATCHET  .....  repeat count 1-4 within one step
+    PROBABILITY  .  fire chance 5-100%. below 100 = random drop
+    NOTE  ........  pitch offset -24 to +24 semitones
+    VELOCITY  ....  hit velocity 1-127. zero = kill the note
+    OFFSET  ......  start playback N% into the region
+    NUDGE  .......  delay this step 1-7 eighths of a step
+
+  These seven parameters per step are how SK3TCH punches above
+  its weight. Most grooveboxes give you on/off. SK3TCH gives you
+  a complete performance decision per hit.
+
+  PATTERN CLONE
+  -------------
+
+  SK3TCH starts with one pattern. When you're ready for a
+  variation, navigate to SEQUENCE, left/right to the PATTERN
+  field, and hit B + right.
+
+  A new pattern is created instantly as an exact copy of the
+  current one — same steps, same FX automation, same everything.
+  You're already on it, ready to edit. Change what you want and
+  leave the rest alone.
+
+  Keep hitting B + right to create up to 4 patterns. Each new
+  one copies whatever you're currently on — so cloning 2 into 3
+  gives you a copy of 2, not a copy of 1.
+
+  B + left navigates back. Navigation wraps through your active
+  patterns only. The PATTERN field shows which one you're on.
+
+  FAST VARIATION WORKFLOW:
+
+    1. Build your core groove on pattern 1
+    2. B + right three times — 4 identical copies
+    3. Go back to pattern 2, drop a few steps
+    4. Pattern 3 — add a fill or extra hit
+    5. Pattern 4 — strip it back for the outro
+
+  Four variations in under a minute, all rooted in the same
+  original groove.
+
+  SWING TIPS
+  ----------
+
+    45-55   ....  subtle, modern
+    60-67   ....  classic boom bap pocket
+    70+     ....  obvious swing, almost dotted
+    80+     ....  broken, drunk — use sparingly
+
+
+===========================================================================
+  0x06  DRUM PROGRAMMING
+===========================================================================
+
+  Load your drums across slots. A typical layout:
+
+    Slot 1  ....  kick
+    Slot 2  ....  snare
+    Slot 3  ....  closed hat
+    Slot 4  ....  open hat
+    Slot 5  ....  clap or rim
+    Slot 6  ....  perc
+
+  Place your basic pattern first. Kick on 1 and 3. Snare on 2
+  and 4. Four on the floor hat or whatever your genre calls for.
+  Get the skeleton locked in before you start tweaking.
+
+  Then make it breathe.
+
+  VELOCITY — DYNAMICS
+  -------------------
+
+  Real drummers don't hit every note at the same volume. Neither
+  should your pattern.
+
+  Ghost the hi-hats on the off-beats. Hold B on those steps and
+  drop VELOCITY to 30-50. Leave the main hat hits at 100-127.
+  The difference between a flat hat pattern and a live one is
+  usually just velocity variation.
+
+  Ghost snares on the 16th before the main snare drop give you
+  that drummer-anticipating-the-hit feel. Try VELOCITY at 20-40.
+
+  VELOCITY 0 kills a playing note. Use this to choke a sample
+  mid-play — point a step in the hat lane with SOURCE set to the
+  open hat slot, VELOCITY 0. The open hat dies when that step
+  fires. Classic hi-hat choke, no mute groups needed.
+
+  NUDGE — MICRO-TIMING
+  --------------------
+
+  Global swing moves every odd step. Nudge moves one step.
+
+  Drag the snare back 2/8 for that behind-the-beat pocket. Push
+  an upbeat hat forward 1/8 for urgency. Leave the kick dead on
+  the grid and let the nudged elements dance around it.
+
+    NUDGE 0  ....  on the grid
+    NUDGE 1  ....  1/8 step late  (~62ms at 120 BPM)
+    NUDGE 4  ....  half a step late — noticeable pocket
+    NUDGE 7  ....  7/8 step late — nearly the next step
+
+  Nudge and swing are additive. A nudged step on an odd beat
+  gets both the swing offset and the nudge offset. Use this or
+  fight it — both are valid.
+
+  UK garage workflow: keep the kick on the grid, swing at 55,
+  nudge specific hats 1-2 for the skippy feel.
+
+  PROBABILITY — CONTROLLED CHAOS
+  --------------------------------
+
+  Set PROBABILITY below 100 and the step fires that percentage
+  of the time. Each pass through the pattern is independent.
+
+    PROBABILITY 100  ....  always fires (default)
+    PROBABILITY 70   ....  drops out 3 times in 10
+    PROBABILITY 40   ....  sparse, unpredictable
+    PROBABILITY 5    ....  rare accent — a surprise visitor
+
+  Ghost snare at PROBABILITY 50 gives you a snare that sometimes
+  ghosts and sometimes doesn't. The pattern breathes differently
+  every 8 bars.
+
+  Stack PROBABILITY with NUDGE and VELOCITY and no two passes of
+  your pattern sound identical. This is the point.
+
+  RATCHET — ROLLS AND FLAMS
+  -------------------------
+
+  RATCHET divides one step into N equally-spaced repeats.
+
+    RATCHET 1  ....  one hit (default)
+    RATCHET 2  ....  flam or double
+    RATCHET 4  ....  roll — four hits in one step window
+
+  A 32nd note roll on the last step before a snare drop:
+  put a step on step 16 of a bar, RATCHET 4. Done.
+
+  RATCHET + PROBABILITY: a ratcheted step where each repeat has
+  PROBABILITY 70 gives you a roll that drops notes randomly.
+  Sounds live.
+
+  OFFSET — WHERE IN THE SAMPLE
+  ----------------------------
+
+  OFFSET starts playback N% into the sample region instead of
+  the beginning. The hit fires at the right time but starts
+  from mid-sample.
+
+  Uses: catch the body of a kick instead of the transient.
+  Skip the breath at the start of a vocal chop. Hit a specific
+  part of a long one-shot without trimming a new file.
+
+    OFFSET 0   ....  start of region (default)
+    OFFSET 25  ....  quarter of the way in
+    OFFSET 50  ....  halfway in
+
+  SOURCE — CROSS-TRIGGERING
+  -------------------------
+
+  By default each step fires its own lane's slot. Change SOURCE
+  and it fires a different slot instead.
+
+  Put a step in the hat lane with SOURCE set to the snare slot.
+  That step fires the snare but at the hat's position in the
+  pattern. Cross-rhythms from one lane.
+
+  Or: use one lane as a universal accent lane — SOURCE changes
+  which slot gets hit on that step. A roving hit that moves
+  between slots as the pattern evolves.
+
+  MUTE GROUPS
+  -----------
+
+  Assign slots to mute group via the MUTE field on the SELECT row.
+
+  Slots in the same group cut each other when triggered. Classic
+  application: open hat on group A, closed hat on group A. When
+  the closed hat fires, the open hat stops dead. Natural choke.
+
+  Multiple slots can share a group. All stop when any fires.
+
+
+===========================================================================
+  0x07  THE 808 BASS
+===========================================================================
+
+  You don't need a bass sample. Any slot can become a synthesised
+  808 kick/bass tone. No samples required.
+
+  On the SOURCE row, hold B and press left/right to switch the
+  instrument type to 808. The param rows change to reflect the synth:
+
+    PITCH  ....  base MIDI note 0-127 (middle C = 60)
+    DECAY  ....  how long the note sustains (ms)
+    DRIVE  ....  saturation amount — warmth and grit
+    ATTACK ....  attack time at the front of the note (ms)
+    DROP  .....  pitch drop in semitones over the decay
+
+  PITCH sets where the 808 lives. Low notes (30-45) are sub bass.
+  Mid notes (50-65) cut through more. High notes are more of a
+  tonal accent than a bass.
+
+  DECAY is the main character control. Short decay = punchy kick.
+  Long decay = sub that holds for bars. Match it to your BPM —
+  a decay that overlaps the next kick sounds muddy.
+
+  DROP is the pitch envelope. At DROP 0 the pitch is static.
+  At DROP 12 the pitch falls an octave over the decay. Classic
+  808 kick behaviour. Higher DROP = more dramatic fall.
+
+  DRIVE pushes saturation into the signal. Adds harmonics that
+  make the 808 audible on smaller speakers and cut in dense mixes.
+
+  SEQUENCING THE BASS LINE
+  ------------------------
+
+  In the sequencer, NOTE on an 808 step sets pitch offset in
+  semitones. Program a bass line across one slot:
+
+    Step 1: NOTE  0  (root)
+    Step 3: NOTE  5  (fourth)
+    Step 5: NOTE  7  (fifth)
+    Step 9: NOTE  0  (root again)
+    Step 11: NOTE 3  (minor third)
+
+  To slide between notes, enable the PORTAMENTO parameter on an
+  808 step — the pitch glides from the previous note into that step.
+
+  808 TIPS
+  --------
+
+    - Keep DECAY shorter at high BPMs or kicks smear into each other
+    - DROP 8-12 with long DECAY is the trap 808 sound
+    - DRIVE 30-50 adds warmth without distortion
+    - DRIVE 80+ gets crunchy — use on purpose, not by accident
+    - Layer with a sample kick on a separate slot for attack punch
+
+
+===========================================================================
+  0x08  EQ
+===========================================================================
+
+  Every slot has a 5-band EQ. It sits in the waveform zone — press
+  UP from the source row to enter it. The waveform is replaced by
+  a frequency curve showing the current EQ shape.
+
+  BANDS
+  -----
+
+    80Hz   ....  low shelf   — sub and low-end weight
+    250Hz  ....  peaking     — low-mid body and mud
+    1kHz   ....  peaking     — presence and midrange
+    4kHz   ....  peaking     — attack and definition
+    10kHz  ....  high shelf  — air and brightness
+
+  NAVIGATION
+  ----------
+
+  The EQ strip spans the full waveform width. It includes the
+  START and END markers at the edges as navigable positions:
+
+    [START] — 80Hz — 250Hz — 1kHz — 4kHz — 10kHz — [END]
+
+  Enter the strip from the level fader (right → START, left →
+  END), or from the save/load bar by pressing down.
+
+    Left / right        cycle between positions in the strip
+    B + up / down       adjust active band gain (±12dB)
+                        or coarse trim when on START / END
+    B + left / right    fine trim when on START / END
+    Up                  exit to save/load bar
+    Down                exit back to source row
+
+  On START or END: navigate inward (right from START, left from
+  END) to enter the EQ bands. Navigate outward to wrap back to
+  the level fader.
+
+  The active band is shown in amber. Its frequency and dB value
+  appear at the bottom of the waveform. All other bands show dim.
+  START and END show their label at the top of the waveform when
+  active. The curve updates in real time as you adjust.
+
+  USE CASES
+  ---------
+
+  On samples: cut the low shelf to remove rumble from a vocal
+  chop. Boost 4kHz to bring attack out of a drum loop. Shelve
+  the top of a loop that's fighting with a hi-hat.
+
+  On the 808: the synth already gives you PITCH, DECAY, DROP,
+  DRIVE, and ATTACK — EQ adds another layer on top. Notch out
+  the low-mid frequency where the 808 clashes with your kick
+  sample. Shelve the top end off a sub that's sitting too bright.
+  The combination gives you per-voice shaping you don't get on
+  most pocket hardware.
+
+  EQ settings save with the project.
+
+
+===========================================================================
+  0x09  INSERT FX
+===========================================================================
+
+  Navigate right past slot 8 to open the FX tab.
+
+  Five insert effects with per-effect AMOUNT and DESTINATION.
+  DESTINATION can be GLOBAL (whole mix) or a specific slot.
+
+  +-----------+-----------------------------------------------------+
+  | LOFI      | Crushes bit depth and sample rate. Adds grit and   |
+  |           | texture. Low amounts add vintage feel, high amounts |
+  |           | go full lo-fi destruction.                          |
+  +-----------+-----------------------------------------------------+
+  | VINYL     | Noise, wobble, and warmth. Makes digital samples    |
+  |           | feel like they were played off wax. Subtle amounts  |
+  |           | go a long way.                                      |
+  +-----------+-----------------------------------------------------+
+  | DELAY     | Echo. Sync it mentally to BPM by ear. On a snare   |
+  |           | for dub feel. On a synth for space.                 |
+  +-----------+-----------------------------------------------------+
+  | SATURATION| Tape saturation and drive. Glues elements. Adds     |
+  |           | harmonic content. Makes things feel louder without  |
+  |           | increasing peak level.                              |
+  +-----------+-----------------------------------------------------+
+  | SIDECHAIN | Pumping compression. Set the source slot (usually   |
+  |           | the kick) and the mix ducks on every hit. Classic   |
+  |           | electronic music energy.                            |
+  +-----------+-----------------------------------------------------+
+
+  DESTINATION is where the power is. LOFI on a drum slot while
+  the melody stays clean. SATURATION on the 808 for sub warmth.
+  VINYL on everything for a unified texture.
+
+  SCATTER is also in the FX tab. Set SCATTER LANES to choose
+  which slots participate. When scatter is active it randomises
+  which steps fire across the selected lanes within a bar.
+
+  FX TIPS
+  -------
+
+    - VINYL at 10-20 on GLOBAL is a free cohesion glue
+    - LOFI at 5-15 on drums adds grit without obviousness
+    - SIDECHAIN source on the kick, destination GLOBAL —
+      the whole mix pumps. Tighten with the DEPTH control.
+    - SATURATION on the 808 at 20-40 fills the sub harmonically
+
+
+===========================================================================
+  0x0A  PUNCH FX — LIVE PERFORMANCE
+===========================================================================
+
+  Punch FX are real-time effects engaged by holding a button
+  combo and pressing a direction. They fire on press, sustain
+  while held, and snap back when you release.
+
+  This is where SK3TCH becomes an instrument.
+
+  X + D-PAD  (main punch FX)
+  --------------------------
+
+    X + Up    .......  TAPE STOP — wind-down stop on all slots
+    X + Down  .......  HALFTIME — active slot drops to half speed
+    X + Left  .......  LPF SWEEP — low-pass filter closes down
+    X + Right .......  SCATTER — randomises step playback per bar
+
+  Y + D-PAD  (mutes)
+  ------------------
+
+    Y + Up    .......  GLOBAL MUTE — silence everything (held)
+    Y + Right .......  SOLO — solo the current slot (held)
+    Y + Left  .......  MUTE GROUP A — toggle (latches)
+    Y + Down  .......  MUTE GROUP B — toggle (latches)
+
+  LT + D-PAD  (secondary punch FX)
+  ---------------------------------
+
+    LT + Up    ......  REVERSE — active slot plays backwards
+    LT + Down  ......  DOUBLE TIME — active slot at double speed
+    LT + Left  ......  HPF SWEEP — high-pass filter opens up
+    LT + Right ......  STUTTER — loops a short buffer of the slot
+
+  PERFORMANCE APPROACH
+  --------------------
+
+  The sequencer runs underneath all of this. Punch FX sit on top.
+
+  Tape stop at the end of a 4-bar phrase is a classic drop tool.
+  Start the wind-down one or two steps before the end of the bar
+  so it lands on the beat when everything cuts.
+
+  Halftime on a loop while keeping the hat lane running gives
+  you that half-speed breakdown feel without everything stopping.
+
+  Stutter on the snare on the last beat of a bar creates a fill.
+  Hold it into the next bar for disorientation. Release to snap
+  back to the grid.
+
+  Reverse on a vocal chop is an accent. Short press, quick
+  reverse, release. The sample plays backwards for a moment
+  then continues forward.
+
+  Mute group A then B for a progressive dropout. Use SOLO to
+  strip everything back to just the kick for a bar.
+
+  The best punch FX moments are accidents. Play and find them.
+
+
+===========================================================================
+  0x0B  FX SEQUENCER AUTOMATION
+===========================================================================
+
+  The FX sequencer is a separate 64-step automation lane that
+  sits above the sample lanes in the FX tab. It fires timed
+  FX events automatically during playback.
+
+  Every FX step has four parameters:
+
+    TYPE  ........  which effect
+    DESTINATION  .  target slot (for slot-specific effects)
+    DURATION  ....  how many steps the effect lasts
+    PROBABILITY  .  chance of firing each pass
+
+  AVAILABLE TYPES
+  ---------------
+
+    MUTE  ...........  silence everything for N steps
+    SOLO  ...........  solo a destination slot for N steps
+    MUTE GROUP A  ...  silence group A for N steps
+    MUTE GROUP B  ...  silence group B for N steps
+    TAPE STOP  ......  wind-down stop
+    HALFTIME  .......  half-speed on target slot for N steps
+    DOUBLE TIME  ....  double-speed on target slot for N steps
+    STUTTER  ........  buffer loop on target slot for N steps
+    REVERSE  ........  reverse on target slot for N steps
+    LPF SWEEP  ......  low-pass filter for N steps then releases
+    HPF SWEEP  ......  high-pass filter for N steps then releases
+    SCATTER  ........  randomise step playback for N steps
+    RANDOM  .........  picks randomly from the pool each pass
+
+  DURATION is measured in steps. DURATION 1 = fires for one step.
+  DURATION 8 = fires for half a bar.
+
+  COMBINING WITH PROBABILITY
+  --------------------------
+
+  FX PROBABILITY works like step probability — each pass through
+  the pattern the FX step may or may not fire.
+
+  A HALFTIME at step 16 with PROBABILITY 30 occasionally drops
+  into half-speed on the last beat of every bar. Your pattern
+  has a surprise that keeps listeners guessing.
+
+  RANDOM with PROBABILITY 20 scattered across the pattern gives
+  you a pattern that sometimes does something unexpected and
+  mostly behaves. Background chaos with a low footprint.
+
+  ARRANGEMENT WITH FX SEQUENCER
+  ------------------------------
+
+  Use patterns for arrangement. Clone your main loop into 2, 3,
+  and 4 using pattern clone (B + right on the PATTERN field),
+  then differentiate each with FX automation.
+
+  Pattern 1 — main loop, no FX automation
+  Pattern 2 — same steps, MUTE on snare for 8 steps (breakdown)
+  Pattern 3 — SCATTER for energy and chaos
+  Pattern 4 — stripped back, MUTE GLOBAL drops for the outro
+
+  Four patterns of 64 steps each = 256 steps of arrangement.
+  At 120 BPM that's over two minutes. Enough for a full sketch.
+
+
+===========================================================================
+  0x0C  PROJECTS
+===========================================================================
+
+  SK3TCH saves everything as a project — all 8 slots, all 4
+  patterns, all FX settings, BPM, swing, step parameters.
+
+  The top bar shows SAVE, LOAD, and NEW. Navigate there with
+  up on the D-pad from the FILE row.
+
+    SAVE  ....  name and save the current state
+    LOAD  ....  browse saved projects and load one
+    NEW  .....  wipe everything and start fresh
+
+  Projects save to:
+  /userdata/roms/ports/SK3TCH/projects/<name>/<name>.sav
+
+  The last loaded project reloads automatically on launch. Open
+  SK3TCH, it's where you left it.
+
+  SAVE OFTEN. The Brick can lose power abruptly. If you've built
+  something good, save it before you start experimenting.
+
+  Project files are plain text. Open one in a text editor and
+  you can see exactly what's stored — BPM, slot paths, step data.
+  Edit by hand if you're brave. Back up the projects folder
+  occasionally by copying it off the SD card.
+
+
+===========================================================================
+  0x0D  RECORDING
+===========================================================================
+
+  SK3TCH can record audio directly into a slot when an audio
+  interface is connected to the Brick's USB-C OTG port.
+
+  Press X to arm (the rec indicator appears). Press X again or
+  trigger a step to start capturing. Press X to stop.
+
+  The recording saves immediately as a WAV:
+  /userdata/roms/ports/SK3TCH/samples/sample01.wav
+
+  It loads directly into the active slot. Trim and sequence it
+  the same as any other sample.
+
+
+===========================================================================
+  0x0E  CONTROLS REFERENCE
+===========================================================================
+
+  NAVIGATION
+  ----------
+
+    D-pad up/down       navigate rows
+    D-pad left/right    navigate sub-fields
+    L1 / R1             previous / next slot
+    Menu                quit
+
+  SAMPLE CONTROL
+  --------------
+
+    A                   play / stop
+    Y                   loop toggle
+    X                   arm/start recording
+    B tap (FILE row)    open file browser
+    B tap (FILE row)    hold B + left/right to switch inst type
+    B (hold) + D-pad    adjust selected parameter
+                          up/down = coarse
+                          left/right = fine
+
+  LEVEL FADER
+  -----------
+
+    Right from FILE     jump to level fader
+    B + up/down         coarse volume adjust
+    B + left/right      fine volume adjust
+    Down (fader)        return to source row
+    Up (fader)          save/load bar
+    Right (fader)       enter EQ strip at START marker
+    Left (fader)        enter EQ strip at END marker
+
+  EQ AND MARKER STRIP
+  -------------------
+
+    Down from top bar   enter EQ strip
+    Left / right        cycle positions: START|80|250|1K|4K|10K|END
+    B + up / down       adjust band gain ±12dB  (EQ bands)
+                        coarse trim              (START / END)
+    B + left / right    fine trim                (START / END)
+    Up (in strip)       exit to save/load bar
+    Down (in strip)     exit to source row
+
+  SEQUENCER
+  ---------
+
+    A                   play / stop sequence
+    B tap (in grid)     toggle step on/off
+    B (hold) in grid    edit step parameters
+                          up/down = cycle parameter field
+                          left/right = adjust value
+
+  PUNCH FX
+  --------
+
+    X + Up              tape stop
+    X + Down            halftime
+    X + Left            LPF sweep
+    X + Right           scatter
+    Y + Up              global mute (held)
+    Y + Right           solo current slot (held)
+    Y + Left            mute group A (latch)
+    Y + Down            mute group B (latch)
+    LT + Up             reverse
+    LT + Down           double time
+    LT + Left           HPF sweep
+    LT + Right          stutter
+
+  STEP PARAMETERS (hold B in grid, up/down to cycle)
+  ---------------------------------------------------
+
+    SOURCE              target slot (default = own lane)
+    RATCHET             repeats per step 1-4
+    PROBABILITY         fire chance 5-100%
+    NOTE                pitch offset -24 to +24 semitones
+    VELOCITY            hit velocity 1-127 (0 = kill)
+    OFFSET              start point % into region
+    NUDGE               delay 1-7 eighths of a step
+
+
+===========================================================================
+
+  SK3TCH was built for making beats in the car, on the bus,
+  killing time. Find something sick. Sequence the happy accidents.
+
+  /files/sk3tch.txt  |  issue 001  |  trimui brick  |  knulli
+
+===========================================================================

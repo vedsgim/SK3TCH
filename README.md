@@ -64,23 +64,6 @@ ports/
 
 ---
 
-## controls
-
-| input | action |
-|---|---|
-| D-pad | navigate / adjust values |
-| B + D-pad | modify selected parameter |
-| A | play / stop |
-| X + D-pad | punch FX (tape stop / halftime / LPF / scatter) |
-| Y + D-pad | mutes and solo |
-| LT + D-pad | secondary punch FX (reverse / double time / HPF / stutter) |
-| L1 / R1 | switch slots |
-| Menu | quit |
-
-Full manual in `sk3tch.txt` — also readable on-device from the Ports folder.
-
----
-
 ## supported devices
 
 | device | status |
@@ -92,8 +75,9 @@ Full manual in `sk3tch.txt` — also readable on-device from the Ports folder.
 
 ## manual
 
-The full manual (`sk3tch.txt`) is included in the release zip and covers:
-trimming · time stretch · slicing · sequencer · drum programming · 808 bass · EQ · insert FX · punch FX · FX automation · projects · recording
+[sk3tch.txt](sk3tch.txt) — covers everything: trimming · time stretch · slicing · sequencer · drum programming · 808 bass · EQ · insert FX · punch FX · FX automation · projects · recording
+
+Also included in the release zip, readable on-device from the Ports folder.
 
 ---
 
