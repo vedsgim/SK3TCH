@@ -1,41 +1,6 @@
-
-<div align="center">
-
-```
- ___ _  _____  ___  _  _
-/ __| |/ /_  )/ __|| || |
-\__ \ ' < / /| (__ | __ |
-|___/_|\_\___|\___||_||_|
-```
+# SK3TCH
 
 **a pocket beat maker for retro gaming handhelds**
-
-*load samples · chop · stretch · sequence · jam*
-
-</div>
-
----
-
-https://github.com/user-attachments/assets/1a8eb2ab-47c6-4078-9e87-1bc683d8c066
-
----
-
-<p align="center">
-  <img src="screenshots/landing.png" width="48%">
-  <img src="screenshots/sample.png" width="48%">
-</p>
-<p align="center">
-  <img src="screenshots/sequencer.png" width="48%">
-  <img src="screenshots/eq.png" width="48%">
-</p>
-<p align="center">
-  <img src="screenshots/bass.png" width="48%">
-  <img src="screenshots/fxsequencer.png" width="48%">
-</p>
-
----
-
-## what is it
 
 SK3TCH is a sample-driven pocket beat maker for the Trimui Brick. It runs on Knulli.
 No computer. No DAW. No wifi. Just you, an SD card full of WAVs,
@@ -55,6 +20,25 @@ The whole thing fits in your pocket.
 - FX automation sequencer lane
 - Phase vocoder time stretch, background-cached
 - Pattern clone for instant variations
+
+---
+
+<p align="center">
+  <img src="screenshots/landing.png" width="48%">
+  <img src="screenshots/sample.png" width="48%">
+</p>
+<p align="center">
+  <img src="screenshots/sequencer.png" width="48%">
+  <img src="screenshots/eq.png" width="48%">
+</p>
+<p align="center">
+  <img src="screenshots/bass.png" width="48%">
+  <img src="screenshots/fxsequencer.png" width="48%">
+</p>
+
+---
+
+https://github.com/user-attachments/assets/1a8eb2ab-47c6-4078-9e87-1bc683d8c066
 
 ---
 
