@@ -1,0 +1,118 @@
+
+<div align="center">
+
+```
+ ___ _  _____  ___  _  _
+/ __| |/ /_  )/ __|| || |
+\__ \ ' < / /| (__ | __ |
+|___/_|\_\___|\___||_||_|
+```
+
+**a pocket beat maker for retro gaming handhelds**
+
+*load samples · chop · stretch · sequence · jam*
+
+</div>
+
+---
+
+https://github.com/user-attachments/assets/2df6182d-8436-4ec0-831b-69533e71e98b
+
+---
+
+<p align="center">
+  <img src="screenshots/landing.png" width="48%">
+  <img src="screenshots/sample.png" width="48%">
+</p>
+<p align="center">
+  <img src="screenshots/sequencer.png" width="48%">
+  <img src="screenshots/eq.png" width="48%">
+</p>
+<p align="center">
+  <img src="screenshots/bass.png" width="48%">
+  <img src="screenshots/fxsequencer.png" width="48%">
+</p>
+
+---
+
+## what is it
+
+SK3TCH is a sample-driven pocket beat maker for the Trimui Brick. It runs on Knulli.
+No computer. No DAW. No wifi. Just you, an SD card full of WAVs,
+and some time to kill.
+
+Load a sample. Chop it. Stretch it to tempo. Sequence it. Layer
+drums. Drop an 808 bass. Dial in the FX. Then jam with punch FX
+until something magical falls out.
+
+The whole thing fits in your pocket.
+
+- 8 sample slots with per-slot EQ, level, and time stretch
+- 64-step sequencer with 4 patterns and per-step probability, nudge, velocity, offset, ratchet
+- 808 synth built in — no bass sample needed
+- Insert FX: lofi, vinyl sim, delay, saturation, sidechain
+- Live punch FX for real-time performance
+- FX automation sequencer lane
+- Phase vocoder time stretch, background-cached
+- Pattern clone for instant variations
+
+---
+
+## install
+
+### Trimui Brick
+
+1. Download `SK3TCH-brick.zip` from [releases](https://github.com/vedsgim/SK3TCH/releases)
+2. Extract to `/userdata/roms/ports/` on your Brick
+3. Refresh the ports list in Knulli
+4. Launch SK3TCH from Ports
+
+The zip contains:
+```
+ports/
+  SK3TCH.sh
+  SK3TCH/
+    sk3tch          ← binary
+    sk3tch.txt      ← manual
+    loops/          ← put your samples here
+    projects/       ← save files go here
+```
+
+---
+
+## controls
+
+| input | action |
+|---|---|
+| D-pad | navigate / adjust values |
+| B + D-pad | modify selected parameter |
+| A | play / stop |
+| X + D-pad | punch FX (tape stop / halftime / LPF / scatter) |
+| Y + D-pad | mutes and solo |
+| LT + D-pad | secondary punch FX (reverse / double time / HPF / stutter) |
+| L1 / R1 | switch slots |
+| Menu | quit |
+
+Full manual in `sk3tch.txt` — also readable on-device from the Ports folder.
+
+---
+
+## supported devices
+
+| device | status |
+|---|---|
+| Trimui Brick | ✅ |
+| RG34XX | coming soon |
+
+---
+
+## manual
+
+The full manual (`sk3tch.txt`) is included in the release zip and covers:
+trimming · time stretch · slicing · sequencer · drum programming · 808 bass · EQ · insert FX · punch FX · FX automation · projects · recording
+
+---
+
+<div align="center">
+<sub>built for making beats on a bus · knulli · aarch64</sub>
+</div>
