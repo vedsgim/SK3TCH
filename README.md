@@ -69,7 +69,6 @@ ports/
 | device | status |
 |---|---|
 | Trimui Brick | ✅ |
-| RG34XX | coming soon |
 
 ---
 
