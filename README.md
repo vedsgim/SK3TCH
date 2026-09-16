@@ -51,7 +51,7 @@ The whole thing fits in your pocket.
 - 64-step sequencer with 4 patterns and per-step probability, nudge, velocity, offset, ratchet
 - 808 synth built in — no bass sample needed
 - Insert FX: lofi, vinyl sim, delay, saturation, sidechain
-- Live punch FX for real-time performance
+- Live punch FX: tape stop, halftime, double time, reverse, LPF sweep, HPF sweep, stutter, scatter
 - FX automation sequencer lane
 - Phase vocoder time stretch, background-cached
 - Pattern clone for instant variations
