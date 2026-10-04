@@ -31,7 +31,8 @@
   0x0B  ..............................  fx sequencer automation
   0x0C  ..............................  projects
   0x0D  ..............................  recording
-  0x0E  ..............................  controls reference
+  0x0E  ..............................  themes
+  0x0F  ..............................  controls reference
 
 
 ===========================================================================
@@ -64,6 +65,7 @@
     Y                  loop toggle / punch FX modifier
     X                  record / punch FX modifier
     L1 / R1            switch slots (1-8)
+    L2 + R2            cycle colour theme
     Menu               quit
 
   Everything else is context-sensitive. The screen tells you
@@ -190,6 +192,27 @@
   Extreme ratios on transient-heavy material will artifact. That
   can sound good too. Experiment.
 
+
+  TUNE
+  ----
+
+  The last field on the SELECT row is TUNE — a per-slot semitone
+  root offset from -12 to +12. Navigate past MUTE to reach it.
+
+    B + up/down    ......  coarse (steps of 4)
+    B + left/right ......  fine (steps of 1)
+
+  TUNE pitch-shifts the entire sample via phase vocoder, the same
+  engine as time stretch. Setting TUNE +3 permanently transposes
+  the slot up three semitones without creating a new file.
+
+  In the sequencer, TUNE and NOTE are additive. If TUNE is +3 and
+  a step has NOTE -3, the step plays at root pitch. Use this to
+  tune a sample to key once in TUNE and then sequence intervals
+  freely with NOTE.
+
+  TUNE 0 is the default. Set it and forget it — it saves with
+  the project.
 
   TIPS
   ----
@@ -475,6 +498,8 @@
     DRIVE  ....  saturation amount — warmth and grit
     ATTACK ....  attack time at the front of the note (ms)
     DROP  .....  pitch drop in semitones over the decay
+    TUNE  .....  semitone offset from C2 (-36 to +91) — quick retune
+                 without changing PITCH directly; on the SELECT row
 
   PITCH sets where the 808 lives. Low notes (30-45) are sub bass.
   Mid notes (50-65) cut through more. High notes are more of a
@@ -797,7 +822,29 @@
 
 
 ===========================================================================
-  0x0E  CONTROLS REFERENCE
+  0x0E  THEMES
+===========================================================================
+
+  SK3TCH ships with a set of colour themes. Press L2 + R2 to cycle
+  forward. The theme name flashes on screen when you switch. Your
+  choice saves automatically and persists across sessions.
+
+  A different palette changes the feel of the session. Pick one
+  that matches the mood of what you're building and let it sit.
+
+  CUSTOM THEMES
+  -------------
+
+  Drop a .theme file into:
+  /userdata/roms/ports/SK3TCH/themes/
+
+  Copy any existing theme as a starting point and edit the colour
+  values. SK3TCH scans the folder on launch and adds your themes
+  to the cycle alongside the built-ins.
+
+
+===========================================================================
+  0x0F  CONTROLS REFERENCE
 ===========================================================================
 
   NAVIGATION
@@ -851,6 +898,11 @@
                           up/down = cycle parameter field
                           left/right = adjust value
 
+  THEMES
+  ------
+
+    L2 + R2             cycle to next colour theme
+
   PUNCH FX
   --------
 
@@ -884,6 +936,6 @@
   SK3TCH was built for making beats in the car, on the bus,
   killing time. Find something sick. Sequence the happy accidents.
 
-  /files/sk3tch.txt  |  issue 001  |  trimui brick  |  knulli
+  /files/sk3tch.txt  |  issue 002  |  trimui brick  |  knulli
 
 ===========================================================================

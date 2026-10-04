@@ -20,6 +20,7 @@ The whole thing fits in your pocket.
 - FX automation sequencer lane
 - Phase vocoder time stretch, background-cached
 - Pattern clone for instant variations
+- Colour themes with custom theme support
 
 ---
 
